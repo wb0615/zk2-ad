@@ -18,23 +18,44 @@ require(['./js/lib/config.js'],function(){
 			setTimeout(function(){
 				pagenum++;
 				getlist();
-				mui('#pullrefresh').pullRefresh().endPullupToRefresh(total===pagenum)
+				mui('#pullrefresh').pullRefresh().endPullupToRefresh(total==pagenum)
 			},1000)
 		}
 		
-		//渲染
+		//获取数据
 		function getlist(){
-			console.log(12)
-			mui.ajax('/index/api/all',{
+			mui.ajax('/index/api/list',{
 				dataType:'json',
 				data:{
 					pagenum:pagenum,
 					pageSize:pageSize
 				},
 				success:function(data){
-					console.log(data)
+					if(data.code===1){
+						total=data.total;
+						render(data.msg)
+						
+					}
 				}
 			})
+		}
+		
+		//渲染函数
+		function render(data){
+			var html='';
+			data.forEach(function(val){
+				html+=`
+						<dl>
+							<dt><img src="img/${val.img}" alt=""></dt>
+							<dd>
+								<p>${val.title}</p>
+								<p class="price">${val.price}元</p>
+							</dd>
+						</dl>
+					  `;
+			})
+			
+			document.querySelector('.mui-scroll').innerHTML+=html;
 		}
 		
 		mui('.mui-scroll-wrapper').scroll({
