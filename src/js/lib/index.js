@@ -3,6 +3,9 @@ require(['./js/lib/config.js'],function(){
 		var pagenum=0;
 		var pageSize=6;
 		var total=0;
+		
+		
+		
 		mui.init({
 				pullRefresh: {
 					container: '#pullrefresh',
@@ -57,9 +60,11 @@ require(['./js/lib/config.js'],function(){
 			
 			document.querySelector('.mui-scroll').innerHTML+=html;
 		}
-		
 		mui('.mui-scroll-wrapper').scroll({
 			deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
 		});
+		
+		
+		
 	})
 })
